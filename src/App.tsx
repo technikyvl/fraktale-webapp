@@ -1,5 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { drawKochSnowflake } from './fractals/kochSnowflake';
+import { drawKochCurve } from './fractals/kochCurve';
+import { drawSierpinskiTriangle } from './fractals/sierpinskiTriangle';
+import { drawFractalTree } from './fractals/fractalTree';
+import { drawMandelbrot } from './fractals/mandelbrot';
 import { exportCanvasAsPng, withHiDPICanvas } from './lib/canvas';
 import { measureMs } from './lib/measure';
 
@@ -58,10 +62,22 @@ export const App: React.FC = () => {
         h: canvas.height - 2 * padding,
       };
 
-      if (fractal === 'koch-snowflake') {
-        await drawKochSnowflake(ctx, drawArea, depth, { animate, speed });
-      } else {
-        // Inne fraktale będą dodane później
+      switch (fractal) {
+        case 'koch-snowflake':
+          await drawKochSnowflake(ctx, drawArea, depth, { animate, speed });
+          break;
+        case 'koch-curve':
+          await drawKochCurve(ctx, drawArea, depth, { animate, speed });
+          break;
+        case 'sierpinski':
+          await drawSierpinskiTriangle(ctx, drawArea, depth, { animate, speed });
+          break;
+        case 'tree':
+          await drawFractalTree(ctx, drawArea, depth, { animate, speed });
+          break;
+        case 'mandelbrot':
+          await drawMandelbrot(ctx, drawArea, depth, { animate, speed });
+          break;
       }
     });
     setIsDrawing(false);
@@ -72,6 +88,10 @@ export const App: React.FC = () => {
       const segments = 3 * Math.pow(4, depth);
       // zakładamy bazową długość boku L = 1 (przed skalowaniem), obwód: 3 * L * (4/3)^n
       const perimeter = 3 * Math.pow(4 / 3, depth);
+      setStats({ timeMs: elapsedMs, segments, perimeter });
+    } else if (fractal === 'koch-curve') {
+      const segments = Math.pow(4, depth);
+      const perimeter = Math.pow(4 / 3, depth);
       setStats({ timeMs: elapsedMs, segments, perimeter });
     } else {
       setStats({ timeMs: elapsedMs, segments: 0, perimeter: 0 });
