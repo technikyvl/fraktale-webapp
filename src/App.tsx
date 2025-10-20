@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { drawKochSnowflake } from './fractals/kochSnowflake';
 import { drawKochCurve } from './fractals/kochCurve';
 import { drawSierpinskiTriangle } from './fractals/sierpinskiTriangle';
