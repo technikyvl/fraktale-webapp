@@ -7,8 +7,9 @@ import { drawMandelbrot } from './fractals/mandelbrot';
 import { exportCanvasAsPng, withHiDPICanvas } from './lib/canvas';
 import { measureMs } from './lib/measure';
 import { Tooltip } from './components/Tooltip';
+import { KochDemo } from './components/KochDemo';
 
-type FractalType = 'koch-snowflake' | 'koch-curve' | 'sierpinski' | 'tree' | 'mandelbrot';
+type FractalType = 'koch-snowflake' | 'koch-curve' | 'sierpinski' | 'tree' | 'mandelbrot' | 'koch-demo';
 
 // Domyślne kolory i ustawienia
 const DEFAULTS = {
@@ -159,6 +160,11 @@ export const App: React.FC = () => {
     document.documentElement.classList.toggle('dark');
   }, []);
 
+  // Jeśli wybrano KochDemo, pokaż go w całości
+  if (fractal === 'koch-demo') {
+    return <KochDemo />;
+  }
+
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       {/* Panel lewy */}
@@ -185,6 +191,7 @@ export const App: React.FC = () => {
             >
               <option value="koch-snowflake">Płatek Kocha</option>
               <option value="koch-curve">Krzywa Kocha</option>
+              <option value="koch-demo">Płatek Kocha – demo rekurencji (BASE CASE)</option>
               <option value="sierpinski">Trójkąt Sierpińskiego</option>
               <option value="tree">Drzewo fraktalne</option>
               <option value="mandelbrot">Zbiór Mandelbrota</option>
