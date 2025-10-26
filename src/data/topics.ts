@@ -14,7 +14,7 @@ export interface Topic {
 
 export const topics: Topic[] = [
   {
-    id: 'koch-snowflake',
+    id: 'koch',
     section: 'fractals',
     title: 'Płatek Kocha',
     tldr: 'Fraktal samopodobny: każdy odcinek zastępujemy czterema krótszymi z "ząbkiem". Teoretycznie proces jest nieskończony; w praktyce zatrzymujemy się na ustalonej głębokości.',
