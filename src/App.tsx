@@ -7,8 +7,8 @@ import { searchTopics } from './lib/search';
 
 const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSection, setSelectedSection] = useState('quick');
-  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
+  const [selectedSection, setSelectedSection] = useState('fractals');
+  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(topics[0]);
   const [isPresenterMode, setIsPresenterMode] = useState(false);
   const [isDark, setIsDark] = useState(true);
 

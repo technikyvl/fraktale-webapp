@@ -10,16 +10,12 @@ interface SidebarProps {
 }
 
 const sections = [
-  { id: 'quick', label: 'Szybka ściąga', icon: '⚡' },
   { id: 'fractals', label: 'Fraktale', icon: '❄️' },
-  { id: 'algorithms', label: 'Algorytmy', icon: '⚙️' },
-  { id: 'formulas', label: 'Przydatne wzory', icon: '📐' },
 ];
 
 const fractalSubsections = [
-  { id: 'koch-snowflake', label: 'Płatek Kocha' },
+  { id: 'koch', label: 'Płatek Kocha' },
   { id: 'sierpinski', label: 'Trójkąt Sierpińskiego' },
-  { id: 'mandelbrot', label: 'Zbiór Mandelbrota' },
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({

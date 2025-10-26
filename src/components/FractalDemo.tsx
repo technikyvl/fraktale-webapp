@@ -2,13 +2,12 @@ import React, { useRef, useEffect, useState } from 'react';
 
 export const FractalDemo: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [type, setType] = useState<'koch' | 'sierpinski' | 'mandelbrot'>('koch');
+  const [type, setType] = useState<'koch' | 'sierpinski'>('koch');
   const [depth, setDepth] = useState(3);
   const [animate, setAnimate] = useState(false);
   const [speed, setSpeed] = useState(5);
   const [segments, setSegments] = useState(0);
   const [renderTime, setRenderTime] = useState(0);
-  const [maxIter, setMaxIter] = useState(100);
 
   useEffect(() => {
     draw();
@@ -37,8 +36,6 @@ export const FractalDemo: React.FC = () => {
       count = drawKoch(ctx, depth);
     } else if (type === 'sierpinski') {
       count = drawSierpinski(ctx, depth);
-    } else if (type === 'mandelbrot') {
-      count = drawMandelbrot(ctx, depth, maxIter);
     }
 
     setSegments(count);
@@ -134,49 +131,17 @@ export const FractalDemo: React.FC = () => {
     return triangleCount;
   };
 
-  const drawMandelbrot = (ctx: CanvasRenderingContext2D, depth: number, maxIter: number): number => {
-    const width = 720;
-    const height = 720;
-    let iterationsCount = 0;
-
-    for (let py = 0; py < height; py++) {
-      for (let px = 0; px < width; px++) {
-        const cx = (px / width) * 3 - 2;
-        const cy = (py / height) * 3 - 1.5;
-
-        let x = 0;
-        let y = 0;
-        let iter = 0;
-
-        while (iter < maxIter && x * x + y * y < 4) {
-          const temp = x * x - y * y + cx;
-          y = 2 * x * y + cy;
-          x = temp;
-          iter++;
-          iterationsCount++;
-        }
-
-        const hue = (iter / maxIter) * 360;
-        ctx.fillStyle = iter === maxIter ? '#000' : `hsl(${hue}, 100%, 50%)`;
-        ctx.fillRect(px, py, 1, 1);
-      }
-    }
-
-    return iterationsCount;
-  };
-
   return (
     <div className="space-y-4">
       <div>
         <label className="block text-sm font-medium mb-2">Typ fraktala</label>
         <select
           value={type}
-          onChange={(e) => setType(e.target.value as any)}
+          onChange={(e) => setType(e.target.value as 'koch' | 'sierpinski')}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800"
         >
           <option value="koch">Płatek Kocha</option>
           <option value="sierpinski">Trójkąt Sierpińskiego</option>
-          <option value="mandelbrot">Zbiór Mandelbrota</option>
         </select>
       </div>
 
@@ -188,29 +153,12 @@ export const FractalDemo: React.FC = () => {
         <input
           type="range"
           min={0}
-          max={type === 'mandelbrot' ? 7 : 7}
+          max={7}
           value={depth}
           onChange={(e) => setDepth(parseInt(e.target.value))}
           className="w-full"
         />
       </div>
-
-      {type === 'mandelbrot' && (
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <label className="text-sm font-medium">Max iteracji</label>
-            <span className="text-sm">{maxIter}</span>
-          </div>
-          <input
-            type="range"
-            min={50}
-            max={200}
-            value={maxIter}
-            onChange={(e) => setMaxIter(parseInt(e.target.value))}
-            className="w-full"
-          />
-        </div>
-      )}
 
       <div className="flex items-center gap-4">
         <label className="flex items-center gap-2">
