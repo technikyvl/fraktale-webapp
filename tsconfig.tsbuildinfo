@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/kochdemo.tsx","./src/components/tooltip.tsx","./src/fractals/fractaltree.ts","./src/fractals/kochcurve.ts","./src/fractals/kochsnowflake.ts","./src/fractals/mandelbrot.ts","./src/fractals/sierpinskitriangle.ts","./src/lib/canvas.ts","./src/lib/measure.ts"],"version":"5.9.3"}

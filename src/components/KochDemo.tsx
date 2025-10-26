@@ -4,35 +4,25 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 type Pt = { x: number; y: number };
 type Segment = { a: Pt; b: Pt; level: number; base: boolean };
 
-// Funkcje pomocnicze
-function lerp(p1: Pt, p2: Pt, t: number): Pt {
-  return {
-    x: p1.x + (p2.x - p1.x) * t,
-    y: p1.y + (p2.y - p1.y) * t,
-  };
-}
-
-function peak(p1: Pt, p2: Pt, angleDeg: number): Pt {
-  const dx = p2.x - p1.x;
-  const dy = p2.y - p1.y;
-  const len = Math.hypot(dx, dy);
-  const angle = Math.atan2(dy, dx);
-  const newAngle = angle + (angleDeg * Math.PI) / 180;
-  return {
-    x: p1.x + Math.cos(newAngle) * len,
-    y: p1.y + Math.sin(newAngle) * len,
-  };
-}
-
+// Generator rekurencyjny dla krzywej Kocha
 function* kochLine(p1: Pt, p2: Pt, level: number): Generator<Segment> {
   if (level === 0) {
     yield { a: p1, b: p2, level, base: true }; // BASE CASE
     return;
   }
 
-  const A = lerp(p1, p2, 1 / 3);
-  const D = lerp(p1, p2, 2 / 3);
-  const C = peak(A, D, 60);
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  const A: Pt = { x: p1.x + dx / 3, y: p1.y + dy / 3 };
+  const D: Pt = { x: p1.x + (2 * dx) / 3, y: p1.y + (2 * dy) / 3 };
+  
+  // Oblicz punkt szczytowy trójkąta równobocznego
+  const angle = Math.atan2(dy, dx) - Math.PI / 3;
+  const len = Math.hypot(dx, dy) / 3;
+  const C: Pt = {
+    x: A.x + Math.cos(angle) * len,
+    y: A.y + Math.sin(angle) * len,
+  };
 
   yield* kochLine(p1, A, level - 1);
   yield* kochLine(A, C, level - 1);
@@ -83,9 +73,9 @@ export const KochDemo: React.FC = () => {
     // Płatek Kocha: tworzymy 3 boki trójkąta równobocznego
     const L = 1;
     const h = (Math.sqrt(3) / 2) * L;
-    const p1: Pt = { x: 0, y: h };
-    const p2: Pt = { x: L / 2, y: 0 };
-    const p3: Pt = { x: L, y: h };
+    const p1: Pt = { x: 0, y: 0 };        // Lewy dolny
+    const p2: Pt = { x: L / 2, y: h };   // Górny wierzchołek
+    const p3: Pt = { x: L, y: 0 };       // Prawy dolny
 
     // Generuj wszystkie segmenty dla 3 boków
     const allSegments: Segment[] = [];
@@ -149,6 +139,8 @@ export const KochDemo: React.FC = () => {
     const step = Math.max(1, Math.floor(allSegments.length / Math.max(1, speed * 20)));
 
     function drawChunk() {
+      if (!ctx) return;
+      
       const end = Math.min(allSegments.length, drawnCount + (animate ? step : allSegments.length));
 
       for (let i = drawnCount; i < end; i++) {
@@ -189,13 +181,20 @@ export const KochDemo: React.FC = () => {
     drawChunk();
   }, [depth, animate, speed]);
 
+  // Inicjalizacja - rysuj od razu
+  useEffect(() => {
+    draw();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Auto-rysowanie przy zmianie parametrów (jeśli brak animacji)
   useEffect(() => {
     if (!animate) {
       const timer = setTimeout(() => draw(), 100);
       return () => clearTimeout(timer);
     }
-  }, [depth, draw]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [depth]);
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
@@ -245,6 +244,13 @@ export const KochDemo: React.FC = () => {
               Animuj rysowanie
             </label>
           </div>
+
+          <button
+            className="w-full rounded-md bg-accent/90 hover:bg-accent text-white px-3 py-2 text-sm"
+            onClick={draw}
+          >
+            Rysuj płatek
+          </button>
         </div>
 
         {/* Statystyki */}
