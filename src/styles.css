@@ -3,18 +3,12 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light dark;
+  --presenter-mode-opacity: 0.95;
 }
 
-/* Drobne wygładzenie i tło */
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+.presenter-mode {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /* Smooth transitions */
@@ -41,4 +35,10 @@ body {
   background: #aaa;
 }
 
+/* Print styles */
+@media print {
+  .no-print {
+    display: none;
+  }
+}
 
