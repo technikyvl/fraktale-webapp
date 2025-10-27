@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  background-color: var(--c-bg-page);
+  color: var(--c-text-primary);
+  font-family: var(--ff-body);
+  line-height: 1.6;
+}
+
+.app-header {
+  padding: var(--sp-3xl) var(--sp-2xl);
+  text-align: center;
+  border-bottom: 1px solid var(--c-line-soft);
+}
+
+.app-header h1 {
+  font-family: var(--ff-heading);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  color: var(--c-text-primary);
+}
+
+.app-main {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--page-padding-y) var(--sp-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--page-gap);
+}

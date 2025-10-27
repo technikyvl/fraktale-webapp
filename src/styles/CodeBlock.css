@@ -1,0 +1,25 @@
+.code-block {
+  background-color: var(--c-bg-page);
+  border: 1px solid var(--c-line-soft);
+  border-radius: var(--code-radius);
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.code-content {
+  font-family: var(--code-font);
+  font-size: var(--code-size);
+  color: var(--c-text-secondary);
+  padding: var(--sp-lg);
+  margin: 0;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.code-content code {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.6;
+  color: inherit;
+}

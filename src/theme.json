@@ -1,0 +1,65 @@
+{
+  "name": "fraktale-theme",
+  "version": "1.0.0",
+  "modes": ["dark"],
+  "colors": {
+    "dark": {
+      "bg/page": "#0B0C0F",
+      "bg/surface": "#101216",
+      "text/primary": "#F4F6F8",
+      "text/secondary": "#B8C0CC",
+      "line/soft": "rgba(255,255,255,0.10)",
+      "accent/primary": "#FF6A2A"
+    }
+  },
+  "typography": {
+    "fontFamily/heading": "Inter, Montserrat, system-ui, sans-serif",
+    "fontFamily/body": "Inter, system-ui, sans-serif",
+    "sizes": {
+      "display": 40,
+      "h1": 32,
+      "h2": 26,
+      "h3": 20,
+      "body": 16,
+      "overline": 12
+    },
+    "weights": {
+      "regular": 400,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  "space": {
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radii": {
+    "md": 12,
+    "lg": 16,
+    "pill": 999
+  },
+  "components": {
+    "page": {
+      "maxWidth": 1200,
+      "paddingY": 48,
+      "gap": 32
+    },
+    "card": {
+      "padding": 24,
+      "radius": "md",
+      "border": "line/soft"
+    },
+    "slider": {
+      "height": 4
+    },
+    "code": {
+      "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+      "fontSize": 13,
+      "radius": "md"
+    }
+  }
+}
