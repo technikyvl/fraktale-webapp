@@ -43,10 +43,10 @@ export function FractalSection({
     // Wyczyść canvas
     ctx.clearRect(0, 0, displayWidth, displayHeight);
 
-    // Ustaw styl
-    ctx.strokeStyle = 'var(--c-text-secondary)';
-    ctx.fillStyle = 'var(--c-text-secondary)';
-    ctx.lineWidth = 1;
+    // Ustaw styl - biały kolor dla fraktali
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.lineWidth = 2;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 

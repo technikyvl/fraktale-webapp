@@ -6,7 +6,7 @@ interface Point {
 }
 
 export function render(ctx: CanvasRenderingContext2D, depth: number): void {
-  const size = 650;
+  const size = 550;
   const centerX = 360;
   const centerY = 360;
   const height = (size * Math.sqrt(3)) / 2;
