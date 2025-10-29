@@ -6,9 +6,15 @@ interface Point {
 }
 
 export function render(ctx: CanvasRenderingContext2D, depth: number): void {
-  const size = 550;
-  const centerX = 360;
-  const centerY = 360;
+  const dpr = (window.devicePixelRatio || 1);
+  const canvasWidth = ctx.canvas.width / dpr;
+  const canvasHeight = ctx.canvas.height / dpr;
+
+  const margin = Math.min(canvasWidth, canvasHeight) * 0.08;
+  const usable = Math.min(canvasWidth, canvasHeight) - 2 * margin;
+  const size = Math.max(usable, 0);
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
   const height = (size * Math.sqrt(3)) / 2;
   
   const top: Point = { x: centerX, y: centerY - (2 * height) / 3 };

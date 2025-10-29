@@ -46,8 +46,8 @@ function noise(x: number, y: number): number {
 }
 
 export function render(ctx: CanvasRenderingContext2D, depth: number): void {
-  const width = 720;
-  const height = 720;
+  const width = ctx.canvas.width;
+  const height = ctx.canvas.height;
   const imageData = ctx.createImageData(width, height);
   
   // depth to liczba oktaw (1-8)

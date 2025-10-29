@@ -6,22 +6,29 @@ interface Point {
 }
 
 export function render(ctx: CanvasRenderingContext2D, depth: number): void {
-  const size = 500;
-  const centerX = 360;
-  const centerY = 360;
+  const dpr = (window.devicePixelRatio || 1);
+  const canvasWidth = ctx.canvas.width / dpr;
+  const canvasHeight = ctx.canvas.height / dpr;
+
+  const margin = Math.min(canvasWidth, canvasHeight) * 0.08;
+  const usable = Math.min(canvasWidth, canvasHeight) - 2 * margin;
+  const size = Math.max(usable, 0);
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
   const height = (size * Math.sqrt(3)) / 2;
   
-  // Wierzchołki trójkąta równobocznego
+  // Wierzchołki trójkąta równobocznego (zamknięty płatek bazowy)
   const p1: Point = { x: centerX - size / 2, y: centerY + height / 3 };
   const p2: Point = { x: centerX, y: centerY - (2 * height) / 3 };
   const p3: Point = { x: centerX + size / 2, y: centerY + height / 3 };
   
   ctx.beginPath();
+  ctx.moveTo(p1.x, p1.y);
   koch(ctx, p1, p2, depth);
   koch(ctx, p2, p3, depth);
   koch(ctx, p3, p1, depth);
-  ctx.stroke();
   ctx.closePath();
+  ctx.stroke();
 }
 
 function koch(ctx: CanvasRenderingContext2D, p1: Point, p2: Point, depth: number): void {

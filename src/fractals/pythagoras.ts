@@ -6,12 +6,22 @@ interface Point {
 }
 
 export function render(ctx: CanvasRenderingContext2D, depth: number): void {
-  const baseSize = 200;
-  const bottomLeft: Point = { x: 210, y: 650 };
-  const bottomRight: Point = { x: 410, y: 650 };
-  
   if (depth === 0) return;
-  
+
+  const dpr = (window.devicePixelRatio || 1);
+  const canvasWidth = ctx.canvas.width / dpr;
+  const canvasHeight = ctx.canvas.height / dpr;
+
+  const margin = Math.min(canvasWidth, canvasHeight) * 0.06;
+  // Przybliżona skala, aby drzewo mieściło się w pionie dla typowych głębokości
+  const baseLength = Math.max(Math.min(canvasWidth, canvasHeight) * 0.22, 10);
+
+  const baseY = canvasHeight - margin;
+  const centerX = canvasWidth / 2;
+
+  const bottomLeft: Point = { x: centerX - baseLength / 2, y: baseY };
+  const bottomRight: Point = { x: centerX + baseLength / 2, y: baseY };
+
   // Narysuj pierwszy kwadrat
   drawSquare(ctx, bottomLeft, bottomRight, depth);
 }

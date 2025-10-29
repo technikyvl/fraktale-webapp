@@ -1,10 +1,11 @@
 // Zbiór Mandelbrota - iteracja funkcji z^2 + c dla każdego piksela
 
 export function render(ctx: CanvasRenderingContext2D, depth: number): void {
-  const width = 720;
-  const height = 720;
+  // Użyj pełnego rozmiaru canvasa (w pikselach urządzenia)
+  const width = ctx.canvas.width;
+  const height = ctx.canvas.height;
   const imageData = ctx.createImageData(width, height);
-  const maxIter = depth; // depth (50-800) mapuje na maxIter
+  const maxIter = Math.max(1, depth); // depth (50-800) mapuje na maxIter
   
   // Zakres w płaszczyźnie zespolonej
   const minX = -2.5;
