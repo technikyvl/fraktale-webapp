@@ -175,6 +175,7 @@ function App() {
       <style dangerouslySetInnerHTML={{ __html: cssVars }} />
       <div className="app">
         <header className="app-header">
+          <div className="app-overline">Jakub Eliasik</div>
           <h1>Fraktale – wizualizacje i algorytmy</h1>
         </header>
 
