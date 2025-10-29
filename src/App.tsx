@@ -8,7 +8,7 @@ import { render as kochRender } from './fractals/koch';
 import { render as sierpinskiRender } from './fractals/sierpinski';
 import { render as pythagorasRender } from './fractals/pythagoras';
 import { render as mandelbrotRender } from './fractals/mandelbrot';
-import { render as fbmRender } from './fractals/fbmMinecraft';
+import { renderMinecraftFBM as fbmRender } from './fractals/fbm';
 
 // Importuj theme.json
 import theme from './theme.json';
