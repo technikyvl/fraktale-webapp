@@ -50,11 +50,16 @@ export function render(ctx: CanvasRenderingContext2D, depth: number): void {
   const h = ctx.canvas.height / dpr;
 
   const pad = Math.min(w, h) * 0.08;
-  const HEIGHT_FACTOR = 3.5; // konserwatywny zapas na całą koronę
-  const baseSide = Math.min((w - 2 * pad), (h - 2 * pad) / HEIGHT_FACTOR);
+  const HEIGHT_FACTOR = 5.0; // konserwatywny zapas na całą koronę
+  const scale = 0.7; // dodatkowy współczynnik zmniejszenia
+  const baseSideRaw = Math.min((w - 2 * pad), (h - 2 * pad) / HEIGHT_FACTOR);
+  const baseSide = baseSideRaw * scale;
 
+  // Wyśrodkowanie: oblicz szacunkową wysokość drzewa i wycentruj pionowo
+  const estimatedHeight = baseSide * HEIGHT_FACTOR;
+  const verticalCenter = h / 2;
+  const yBase = verticalCenter + estimatedHeight / 2 - baseSide;
   const x1 = (w - baseSide) / 2;
-  const yBase = h - pad;
   const topY = yBase - baseSide;
 
   // Bazowy kwadrat (dla spójności rysunku)
